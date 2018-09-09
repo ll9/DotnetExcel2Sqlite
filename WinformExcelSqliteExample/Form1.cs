@@ -12,6 +12,8 @@ namespace WinformExcelSqliteExample
 {
     public partial class Form1 : Form
     {
+        private const string ExcelPath = "data.xlsx";
+
         public Form1()
         {
             InitializeComponent();
@@ -19,8 +21,13 @@ namespace WinformExcelSqliteExample
 
         private void fillFromExcel_Click(object sender, EventArgs e)
         {
-            var dataTable = ExcelHandler.ImportExceltoDatatable("data.xlsx");
+            var dataTable = ExcelHandler.ImportExceltoDatatable(ExcelPath);
             dataGridView1.DataSource = dataTable;
+        }
+
+        private void Excel2Sqlite_Click(object sender, EventArgs e)
+        {
+            ExcelHandler.ExportExcelToSqlite(ExcelPath, "sqlite.db", "features");
         }
     }
 }

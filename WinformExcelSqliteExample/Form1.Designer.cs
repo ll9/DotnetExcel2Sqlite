@@ -30,6 +30,7 @@
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.fillFromExcel = new System.Windows.Forms.Button();
+            this.Excel2Sqlite = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,11 +52,22 @@
             this.fillFromExcel.UseVisualStyleBackColor = true;
             this.fillFromExcel.Click += new System.EventHandler(this.fillFromExcel_Click);
             // 
+            // Excel2Sqlite
+            // 
+            this.Excel2Sqlite.Location = new System.Drawing.Point(544, 99);
+            this.Excel2Sqlite.Name = "Excel2Sqlite";
+            this.Excel2Sqlite.Size = new System.Drawing.Size(127, 23);
+            this.Excel2Sqlite.TabIndex = 2;
+            this.Excel2Sqlite.Text = "Excel2Sqlite";
+            this.Excel2Sqlite.UseVisualStyleBackColor = true;
+            this.Excel2Sqlite.Click += new System.EventHandler(this.Excel2Sqlite_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Excel2Sqlite);
             this.Controls.Add(this.fillFromExcel);
             this.Controls.Add(this.dataGridView1);
             this.Name = "Form1";
@@ -69,6 +81,7 @@
 
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button fillFromExcel;
+        private System.Windows.Forms.Button Excel2Sqlite;
     }
 }
 

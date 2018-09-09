@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,6 +52,52 @@ namespace WinformExcelSqliteExample
 
                 return dataTable;
             }
+        }
+
+        public static void ExportExcelToSqlite(string excelPath, string sqlitePath, string tableName)
+        {
+            using (var connection = GetConnection(sqlitePath))
+            {
+                connection.Open();
+                using (XLWorkbook workBook = new XLWorkbook(excelPath))
+                {
+                    IXLWorksheet workSheet = workBook.Worksheet(1);
+
+                    var firstRow = true;
+                    foreach (IXLRow row in workSheet.Rows())
+                    {
+                        //Use the first row to add Headings to Sqlite
+                        if (firstRow)
+                        {
+                            var query = String.Format("CREATE TABLE {0} ({1});",
+                                tableName,
+                                String.Join(", ",
+                                row.Cells().Select(cell => $"{cell.Value.ToString()} VARCHAR(30)")
+                                )
+                            );
+                            new SQLiteCommand(query, connection).ExecuteNonQuery();
+                            firstRow = false;
+                        }
+                        else
+                        // Insert Values into table
+                        {
+                            var query = String.Format("INSERT INTO {0} VALUES ({1});",
+                                tableName,
+                                String.Join(", ",
+                                row.Cells().Select(cell => $"'{cell.Value.ToString()}'")
+                                ));
+
+                            new SQLiteCommand(query, connection).ExecuteNonQuery();
+                        }
+                    }
+                }
+
+            }
+        }
+
+        private static SQLiteConnection GetConnection(string sqlitePath)
+        {
+            return new SQLiteConnection($"Data Source={sqlitePath}");
         }
     }
 }
