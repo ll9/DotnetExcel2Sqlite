@@ -16,5 +16,11 @@ namespace WinformExcelSqliteExample
         {
             InitializeComponent();
         }
+
+        private void fillFromExcel_Click(object sender, EventArgs e)
+        {
+            var dataTable = ExcelHandler.ImportExceltoDatatable("data.xlsx");
+            dataGridView1.DataSource = dataTable;
+        }
     }
 }
